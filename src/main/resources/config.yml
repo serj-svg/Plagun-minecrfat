@@ -1,0 +1,23 @@
+# PlagunMinecraft configuration
+
+# Default number of lives given by /lives give <player>
+default-lives: 3
+
+# When a player runs out of lives, force gamemode to:
+# Allowed: SPECTATOR, ADVENTURE
+death-gamemode: SPECTATOR
+
+# Show lives count in player tab list / action bar
+show-lives-actionbar: true
+
+# Broadcast message when player permanently dies
+broadcast-final-death: true
+
+# Hunger Games settings
+hungergames:
+  # Countdown seconds before release from spawns
+  countdown-seconds: 30
+  # Minimum players needed to start
+  min-players: 2
+  # Apply invulnerability during countdown
+  invulnerable-countdown: true

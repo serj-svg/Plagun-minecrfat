@@ -1,0 +1,67 @@
+name: PlagunMinecraft
+version: '${project.version}'
+main: com.plagun.minecraft.PlagunPlugin
+api-version: '1.21'
+authors: [Plagun]
+description: Hunger Games plugin with lives, teams, and moderation tools
+commands:
+  lives:
+    description: Manage player lives
+    usage: /lives <give|set|check|revive|reset|list> [player] [amount]
+    aliases: [life, жизни]
+  pteam:
+    description: Manage teams
+    usage: /pteam <create|delete|add|remove|list|info|auto|clear> [args]
+    aliases: [команда]
+  hg:
+    description: Hunger Games game control
+    usage: /hg <start|stop|setlobby|setspawn|tplobby|spectate>
+    aliases: [hungergames, голодныеигры]
+  plagun:
+    description: Plugin management
+    usage: /plagun <reload|info|version>
+    aliases: [pmc]
+  pfreeze:
+    description: Freeze a player
+    usage: /pfreeze <player>
+  punfreeze:
+    description: Unfreeze a player
+    usage: /punfreeze <player>
+  pheal:
+    description: Heal a player
+    usage: /pheal [player]
+  pfeed:
+    description: Feed a player
+    usage: /pfeed [player]
+  pvanish:
+    description: Toggle vanish
+    usage: /pvanish
+  ptp:
+    description: Teleport to a player
+    usage: /ptp <player>
+  pbroadcast:
+    description: Broadcast a message
+    usage: /pbroadcast <message>
+    aliases: [pbc]
+
+permissions:
+  plagun.*:
+    description: All Plagun permissions
+    default: op
+    children:
+      plagun.admin: true
+      plagun.lives.use: true
+      plagun.team.use: true
+      plagun.hg.use: true
+  plagun.admin:
+    description: Admin commands (moderation, plugin management)
+    default: op
+  plagun.lives.use:
+    description: Use lives commands
+    default: op
+  plagun.team.use:
+    description: Use team commands
+    default: op
+  plagun.hg.use:
+    description: Use hunger games control
+    default: op
