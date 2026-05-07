@@ -16,9 +16,9 @@ public class PlagunMod implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Initializing Plagun mod (v1.0.0) for Minecraft 1.21.3");
         PlagunState.init();
-        ModCommands.register();
-        ModEvents.register();
-        SparkleManager.register();
+        ModCommands.register();   // /plagun + /lives + /pteam + /hg + /pfreeze...
+        ModEvents.register();      // lifecycle, join, death, respawn, tick, pvp guard
+        SparkleManager.register(); // sparkle particle trail
         LOGGER.info("Plagun mod initialized.");
     }
 }

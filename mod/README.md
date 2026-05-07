@@ -1,18 +1,79 @@
-# Plagun Mod (Fabric, 1.21.3) — base
+# Plagun Mod (Fabric, 1.21.3)
 
-Foundation Fabric mod for **Minecraft 1.21.3**. Designed as a starting point —
-features will be expanded in follow-up iterations.
+Полный порт Paper-плагина на Fabric: жизни, команды, голодные игры, модерация.
+Все команды требуют `permission level 2` (OP). Состояние пишется в
+`<config>/plagun/data.json`.
 
-## Что уже сделано
+## Жизни (`/lives`)
 
-| Команда (нужен OP / permission level 2) | Что делает |
+| Команда | Действие |
 | --- | --- |
-| `/plagun version` | Версия мода |
-| `/plagun heal [targets]` | Лечит игрока (себя, если без аргумента) + сердечки в воздух |
-| `/plagun feed [targets]` | Восстанавливает голод и насыщение |
+| `/lives give <player> [N]` | Выдать жизни (по умолчанию 3) |
+| `/lives set <player> <N>` | Установить точное количество |
+| `/lives check [player]` | Узнать сколько жизней |
+| `/lives revive <player>` | Воскресить «пермадед»-игрока |
+| `/lives reset [player]` | Сбросить данные (всё или для одного) |
+| `/lives list` | Список всех отслеживаемых |
+
+При смерти жизнь списывается. Когда становится 0 — игрок переходит в
+**SPECTATOR** (настраивается в JSON через ключ `config.death-gamemode`),
+и при респавне снова форсится в spectator, пока админ не сделает
+`/lives revive`.
+
+## Команды-цвета (`/pteam`)
+
+15 цветов: red, blue, yellow, green, aqua, purple, white, black, gold,
+gray, dark_red, dark_blue, dark_green, dark_aqua, dark_purple.
+
+| Команда | Действие |
+| --- | --- |
+| `/pteam create <name> <color>` | Создать команду |
+| `/pteam delete <name>` | Удалить |
+| `/pteam add <player> <team>` / `remove <player>` | Управление составом |
+| `/pteam list` / `info <name>` / `clear` | Информация и очистка |
+| `/pteam auto <numTeams> <playersPerTeam>` | Случайное распределение игроков |
+
+Цвет применяется через scoreboard-team Майнкрафта: префикс `[RED] /
+[BLUE]` перед ником, цвет имени над головой и в чате, friendly fire
+отключён внутри команды.
+
+## Голодные игры (`/hg`)
+
+| Команда | Действие |
+| --- | --- |
+| `/hg setlobby` | Зафиксировать лобби в твоей текущей точке |
+| `/hg setspawn` | Добавить точку спавна |
+| `/hg clearspawns` | Очистить точки |
+| `/hg start` | Старт игры — телепорт по случайным точкам, очистка инвентаря, обратный отсчёт 30с с инвулом |
+| `/hg stop` | Остановить |
+| `/hg tplobby [player]` / `tpall` | Телепорт в лобби |
+| `/hg spectate` | Самому в режим наблюдателя |
+| `/hg info` | Состояние |
+
+## Модерация
+
+- `/pfreeze <player>` / `/punfreeze <player>` — заморозка через тиковый телепорт назад
+- `/pheal [player]` / `/pfeed [player]` — здоровье и голод
+- `/pvanish` — статус-эффект Invisibility (`Integer.MAX_VALUE`, без иконки и частиц)
+- `/ptp <player>` — телепорт к игроку
+- `/pbroadcast <message>` — глобальное объявление
+
+## Управление модом
+
+- `/plagun version` — версия
+- `/plagun reload` — перечитать JSON
+- `/plagun save` — принудительно сохранить
+- `/plagun info` — список корней команд
+
+## Базовые «фишки» (остались с прошлой итерации)
+
+| Команда | Что делает |
+| --- | --- |
+| `/plagun heal [targets]` | Лечит + сердечки |
+| `/plagun feed [targets]` | Голод и сатурация на максимум |
 | `/plagun fly [targets]` | Переключает возможность полёта |
-| `/plagun sparkle [targets]` | Включает / выключает цветной шлейф из частиц вокруг игрока |
-| `/plagun pvp <true\|false>` | Глобальный переключатель PvP (запрет ближней атаки игрок→игрок) |
+| `/plagun sparkle [targets]` | Включает / выключает цветной шлейф из частиц |
+| `/plagun pvp <true\|false>` | Глобальный переключатель PvP |
 
 ### Эффекты, которые сразу видны
 
