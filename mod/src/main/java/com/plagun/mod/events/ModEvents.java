@@ -64,7 +64,7 @@ public final class ModEvents {
             world.spawnParticles(ParticleTypes.LARGE_SMOKE,
                     player.getX(), player.getY() + 1.0, player.getZ(),
                     30, 0.5, 0.7, 0.5, 0.05);
-            world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_WITHER_SPAWN.value(),
+            world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_WITHER_SPAWN,
                     SoundCategory.PLAYERS, 0.4f, 1.6f);
         });
 
