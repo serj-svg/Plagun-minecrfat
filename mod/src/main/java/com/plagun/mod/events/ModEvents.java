@@ -12,7 +12,6 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
 import net.minecraft.network.packet.s2c.play.SubtitleS2CPacket;
 import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
 import net.minecraft.particle.ParticleTypes;
@@ -24,6 +23,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.PositionFlag;
 
 import java.util.EnumSet;
 import java.util.Set;
@@ -33,8 +33,7 @@ public final class ModEvents {
 
     private ModEvents() {}
 
-    private static final Set<PlayerPositionLookS2CPacket.PositionFlag> NO_FLAGS =
-            EnumSet.noneOf(PlayerPositionLookS2CPacket.PositionFlag.class);
+    private static final Set<PositionFlag> NO_FLAGS = EnumSet.noneOf(PositionFlag.class);
 
     public static void register() {
         // Lifecycle: load/save, attach managers

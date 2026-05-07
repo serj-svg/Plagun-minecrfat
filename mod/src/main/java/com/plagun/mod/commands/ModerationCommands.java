@@ -5,11 +5,11 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.plagun.mod.managers.ModerationManager;
 import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.world.PositionFlag;
 
 import java.util.EnumSet;
 import java.util.Set;
@@ -21,8 +21,7 @@ public final class ModerationCommands {
 
     private ModerationCommands() {}
 
-    private static final Set<PlayerPositionLookS2CPacket.PositionFlag> NO_FLAGS =
-            EnumSet.noneOf(PlayerPositionLookS2CPacket.PositionFlag.class);
+    private static final Set<PositionFlag> NO_FLAGS = EnumSet.noneOf(PositionFlag.class);
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("pfreeze")

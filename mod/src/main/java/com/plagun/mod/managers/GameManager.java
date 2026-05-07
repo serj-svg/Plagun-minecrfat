@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.plagun.mod.PlagunMod;
 import com.plagun.mod.data.PlagunData;
-import net.minecraft.network.packet.s2c.play.PlayerPositionLookS2CPacket;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
@@ -15,6 +14,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
+import net.minecraft.world.PositionFlag;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -115,8 +115,7 @@ public final class GameManager {
 
     public static boolean hasLobby() { return lobbyPos != null && lobbyDim != null; }
 
-    private static final Set<PlayerPositionLookS2CPacket.PositionFlag> NO_FLAGS =
-            EnumSet.noneOf(PlayerPositionLookS2CPacket.PositionFlag.class);
+    private static final Set<PositionFlag> NO_FLAGS = EnumSet.noneOf(PositionFlag.class);
 
     public static void teleportToLobby(ServerPlayerEntity p) {
         if (!hasLobby() || server == null) return;
