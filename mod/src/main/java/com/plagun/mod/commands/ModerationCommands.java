@@ -4,15 +4,12 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.plagun.mod.managers.ModerationManager;
+import com.plagun.mod.managers.Teleporter;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.world.PositionFlag;
-
-import java.util.EnumSet;
-import java.util.Set;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -20,8 +17,6 @@ import static net.minecraft.server.command.CommandManager.literal;
 public final class ModerationCommands {
 
     private ModerationCommands() {}
-
-    private static final Set<PositionFlag> NO_FLAGS = EnumSet.noneOf(PositionFlag.class);
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("pfreeze")
@@ -70,7 +65,7 @@ public final class ModerationCommands {
                 .then(argument("target", EntityArgumentType.player()).executes(ctx -> {
                     ServerPlayerEntity self = ctx.getSource().getPlayerOrThrow();
                     ServerPlayerEntity t = EntityArgumentType.getPlayer(ctx, "target");
-                    self.teleport(t.getServerWorld(), t.getX(), t.getY(), t.getZ(), NO_FLAGS, self.getYaw(), self.getPitch(), false);
+                    Teleporter.move(self.getServer(), self, t.getServerWorld(), t.getX(), t.getY(), t.getZ(), self.getYaw(), self.getPitch());
                     self.sendMessage(Text.literal("Teleported to " + t.getName().getString()).formatted(Formatting.GREEN));
                     return Command.SINGLE_SUCCESS;
                 })));

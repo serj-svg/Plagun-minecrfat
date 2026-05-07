@@ -5,6 +5,7 @@ import com.plagun.mod.managers.GameManager;
 import com.plagun.mod.managers.LivesManager;
 import com.plagun.mod.managers.ModerationManager;
 import com.plagun.mod.managers.TeamManager;
+import com.plagun.mod.managers.Teleporter;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -23,17 +24,12 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.PositionFlag;
 
-import java.util.EnumSet;
-import java.util.Set;
 import java.util.UUID;
 
 public final class ModEvents {
 
     private ModEvents() {}
-
-    private static final Set<PositionFlag> NO_FLAGS = EnumSet.noneOf(PositionFlag.class);
 
     public static void register() {
         // Lifecycle: load/save, attach managers
@@ -133,7 +129,7 @@ public final class ModEvents {
                     Vec3d pos = ModerationManager.frozenPos(id);
                     if (pos == null) continue;
                     if (p.squaredDistanceTo(pos.x, pos.y, pos.z) > 0.04) {
-                        p.teleport((ServerWorld) p.getWorld(), pos.x, pos.y, pos.z, NO_FLAGS, p.getYaw(), p.getPitch(), false);
+                        Teleporter.move(server, p, (ServerWorld) p.getWorld(), pos.x, pos.y, pos.z, p.getYaw(), p.getPitch());
                     }
                 }
             }

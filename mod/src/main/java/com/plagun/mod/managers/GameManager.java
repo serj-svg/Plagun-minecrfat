@@ -14,14 +14,11 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
-import net.minecraft.world.PositionFlag;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 public final class GameManager {
 
@@ -115,13 +112,11 @@ public final class GameManager {
 
     public static boolean hasLobby() { return lobbyPos != null && lobbyDim != null; }
 
-    private static final Set<PositionFlag> NO_FLAGS = EnumSet.noneOf(PositionFlag.class);
-
     public static void teleportToLobby(ServerPlayerEntity p) {
         if (!hasLobby() || server == null) return;
         ServerWorld w = server.getWorld(lobbyDim);
         if (w == null) return;
-        p.teleport(w, lobbyPos.x, lobbyPos.y, lobbyPos.z, NO_FLAGS, p.getYaw(), p.getPitch(), false);
+        Teleporter.move(server, p, w, lobbyPos.x, lobbyPos.y, lobbyPos.z, p.getYaw(), p.getPitch());
     }
 
     public static void addSpawn(ServerPlayerEntity p) {
@@ -150,7 +145,7 @@ public final class GameManager {
         for (int i = 0; i < players.size(); i++) {
             ServerPlayerEntity p = players.get(i);
             Vec3d sp = spawnsCopy.get(i % spawnsCopy.size());
-            p.teleport(world, sp.x, sp.y, sp.z, NO_FLAGS, p.getYaw(), p.getPitch(), false);
+            Teleporter.move(server, p, world, sp.x, sp.y, sp.z, p.getYaw(), p.getPitch());
             p.changeGameMode(GameMode.SURVIVAL);
             p.setHealth(p.getMaxHealth());
             p.getHungerManager().setFoodLevel(20);
